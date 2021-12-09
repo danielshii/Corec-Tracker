@@ -28,7 +28,9 @@
   <p align="center">
     Although this project hasn't been pushed to development yet, the code is all complete. All there is left to do is pitch this project to the employees at the Corec and gain their approval. Once that happens, this project will be available for everyone to use!
   </p>
+  <p align="center"><i>Forked from https://github.com/leeethan1/Corec-Tracker</i></p>
 </div>
+
 
 
 
