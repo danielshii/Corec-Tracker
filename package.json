@@ -7,10 +7,11 @@
     "doc": "docs"
   },
   "dependencies": {
+    "react-compound-slider": "^3.3.1",
     "react-facebook-login": "^4.1.1",
-    "react-router-dom": "^5.3.0"
+    "react-router-dom": "^5.3.0",
+    "rsuite": "^5.1.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

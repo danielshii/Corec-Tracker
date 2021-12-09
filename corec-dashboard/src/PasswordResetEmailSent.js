@@ -11,7 +11,7 @@ function PasswordResetEmailSent() {
     }
 
     return (
-        <div>
+        <div className="margins">
             <h1>
                 A link to reset your password was sent to your email.
             </h1>

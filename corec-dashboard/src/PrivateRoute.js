@@ -1,26 +1,41 @@
-import {React, useEffect} from "react";
-import {Route, Redirect} from "react-router-dom";
+import { React, useState, useEffect } from "react";
+import { Route, Redirect, useHistory } from "react-router-dom";
+import NotLoggedIn from "./NotLoggedIn";
+import Header from "./Header";
 import "./App.css";
 
-function PrivateRoute({ isLoggedIn, ...props}) {
-  async function checkToken() {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: localStorage.getItem("access")
-        }),
-      };
-      let response = await fetch("/auth", requestOptions);
-      response = await response.json();
-      console.log(response.status);
-      return response.status == 'success';
+function PrivateRoute({ ...props }) {
+  const { component, path } = props;
+  const [authenticated, setAuthenticated] = useState(false);
+
+  async function authenticate() {
+    const token = localStorage.getItem("remember")
+      ? localStorage.getItem("access")
+      : sessionStorage.getItem("access");
+    //console.log(token);
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        access: token,
+      },
+    };
+    const response = await fetch(`/auth`, requestOptions);
+    setAuthenticated(response.ok);
   }
-  return (
-    checkToken()
-    ? <Route {...props}/>
-    : <Redirect to="/"/>
-  )
+
+  useEffect(() => {
+    authenticate();
+  }, []);
+
+  return authenticated ? (
+    <Route exact path={path} component={component} />
+  ) : (
+    <div>
+      <Header />
+      <NotLoggedIn />
+    </div>
+  );
 }
 
 export default PrivateRoute;

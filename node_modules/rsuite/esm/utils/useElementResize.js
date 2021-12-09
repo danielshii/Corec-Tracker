@@ -1,0 +1,19 @@
+import { useEffect } from 'react';
+import bindElementResize, { unbind } from 'element-resize-event';
+/**
+ * Attach the event handler directly to the specified DOM element,
+ * and it will be triggered when the size of the DOM element is changed.
+ *
+ * @param eventTarget The target to listen for events on
+ * @param listener An event handler
+ */
+
+export default function useElementResize(eventTarget, listener) {
+  useEffect(function () {
+    var target = typeof eventTarget === 'function' ? eventTarget() : eventTarget;
+    bindElementResize(target, listener);
+    return function () {
+      return unbind(target);
+    };
+  }, [eventTarget, listener]);
+}
